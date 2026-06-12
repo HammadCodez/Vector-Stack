@@ -1,4 +1,5 @@
 // VectorStack Documentation Pages Data
+// Featuring inline HTML anchor links for crawler testing, related links, next steps, and test annotations.
 
 export const docsPages = [
   {
@@ -8,20 +9,20 @@ export const docsPages = [
     sections: [
       {
         heading: "Overview",
-        body: "VectorStack helps teams create AI search applications by combining document ingestion, embeddings, vector indexes, metadata filtering, and retrieval APIs. By managing these complex components inside a unified cloud platform, developers can focus on application-level workflows rather than index operations and scaling clusters."
+        body: "VectorStack helps teams create AI search applications by combining document ingestion, embeddings, vector indexes, metadata filtering, and retrieval APIs. Before building, you must complete the <a href=\"/docs/installation\">installation guide</a> and configure <a href=\"/docs/authentication\">authentication credentials</a>."
       },
       {
         heading: "Creating a Project",
-        body: "To get started, navigate to the VectorStack console and click 'Create Project'. Give your project a name (e.g., 'E-Commerce Search') and select a deployment region close to your primary app server. A default environment will be initialized for you."
+        body: "To get started, navigate to the VectorStack console and click 'Create Project'. The project acts as the secure sandbox for your indexes and credentials. Projects should correspond to different runtime <a href=\"/docs/environments\">environments</a> like staging and production."
       },
       {
         heading: "Installing the SDK",
-        body: "Install the SDK client inside your project directory. Both JavaScript/TypeScript and Python are officially supported.",
+        body: "Install the official client package into your project repository. Make sure you read the instructions for our <a href=\"/sdk/javascript\">JavaScript SDK</a> and <a href=\"/sdk/python\">Python SDK</a>.",
         code: "npm install vectorstack"
       },
       {
         heading: "Initializing the Client",
-        body: "Instantiate the client using the API key generated in the organization console. Remember to keep the API key secret and never expose it in client-side code.",
+        body: "Instantiate the client using the API key generated in the organization console. Ensure your key has adequate <a href=\"/docs/teams-and-permissions\">teams and permissions</a> setups.",
         code: "const { VectorStack } = require('vectorstack');\nconst client = new VectorStack({ apiKey: process.env.VECTORSTACK_API_KEY });"
       },
       {
@@ -31,14 +32,25 @@ export const docsPages = [
       },
       {
         heading: "Uploading Documents",
-        body: "Ingest content into the index by passing markdown, text, or HTML documents. The ingestion pipeline automatically chunks and embeds the text.",
+        body: "Ingest content into the index by passing files. The pipeline automatically performs <a href=\"/docs/chunking\">token chunking</a> and embeds the text.",
         code: "await client.documents.upload({\n  indexId: 'articles',\n  id: 'doc-1',\n  content: 'VectorStack makes managed vector indexes simple to build and deploy.',\n  metadata: { category: 'docs' }\n});"
       },
       {
         heading: "Running Semantic Search",
-        body: "Query the index using natural language. The query is embedded on-the-fly, and the closest matching document chunks are returned.",
+        body: "Query the index using natural language. The query is embedded on-the-fly, and the closest matching document chunks are returned. You can also combine keyword search using our <a href=\"/docs/hybrid-search\">hybrid search</a> configurations.",
         code: "const results = await client.indexes.search({\n  indexId: 'articles',\n  query: 'How to build vector indexes?'\n});\nconsole.log(results);"
       }
+    ],
+    relatedLinks: [
+      { text: "Installation Guide", href: "/docs/installation" },
+      { text: "Authentication Protocols", href: "/docs/authentication" },
+      { text: "API Keys Setup", href: "/docs/api-keys" },
+      { text: "Vector Indexes", href: "/docs/vector-indexes" },
+      { text: "API Overview", href: "/api/overview" }
+    ],
+    nextSteps: [
+      { text: "Install the SDK", description: "Get the client packages installed in your codebase.", href: "/docs/installation" },
+      { text: "Configure Auth", description: "Set up security credentials and Bearer API Keys.", href: "/docs/authentication" }
     ]
   },
   {
@@ -48,8 +60,8 @@ export const docsPages = [
     sections: [
       {
         heading: "JavaScript / Node.js SDK",
-        body: "Install the JavaScript SDK using npm or yarn. The SDK is compatible with Node.js 18+ and edge runtimes (e.g., Next.js Middleware, Cloudflare Workers).",
-        // TEST CHANGE IDEA:
+        body: "Install the JavaScript SDK using npm or yarn. The SDK is compatible with standard backend setups, and also fits specialized <a href=\"/sdk/node\">Node SDK</a> environments and limited <a href=\"/sdk/edge-runtime\">Edge Runtime SDK</a> integrations.",
+        // FLOWDOC TEST CHANGE:
         // Change "npm install vectorstack"
         // to "npm install @vectorstack/sdk"
         // to test installation package rename detection.
@@ -57,17 +69,27 @@ export const docsPages = [
       },
       {
         heading: "Python SDK",
-        body: "Install the Python SDK from PyPI using pip. It is compatible with Python 3.8+ and includes built-in typing support.",
+        body: "Install the Python SDK from PyPI using pip. Read the Python segment under <a href=\"/sdk/python\">Python SDK</a> guide for advanced data pipeline bindings.",
         code: "pip install vectorstack"
       },
       {
         heading: "React Native / Client Environments",
-        body: "For security reasons, we strongly recommend against installing or using the SDK inside client-side or mobile applications directly. Exposing your Master API Key to client bundles allows users to read, update, or delete your entire vector index. Always route search requests through a secure backend proxy or serverless function.",
+        body: "For security reasons, we strongly recommend against using the SDK inside client-side applications directly. Exposing your Master API Key to client bundles allows users to bypass your index permissions. Always verify your <a href=\"/docs/security\">security protocols</a> first.",
         callout: {
           type: "warning",
           text: "Never use VectorStack SDKs directly in the browser or mobile applications with master API keys."
         }
       }
+    ],
+    relatedLinks: [
+      { text: "JavaScript SDK", href: "/sdk/javascript" },
+      { text: "Python SDK", href: "/sdk/python" },
+      { text: "React SDK", href: "/sdk/react" },
+      { text: "Security Standards", href: "/docs/security" }
+    ],
+    nextSteps: [
+      { text: "API Authentication", description: "Learn how to authenticate requests with your API key.", href: "/docs/authentication" },
+      { text: "Create Vector Indexes", description: "Set up vector databases to store embeddings.", href: "/docs/vector-indexes" }
     ]
   },
   {
@@ -77,21 +99,32 @@ export const docsPages = [
     sections: [
       {
         heading: "Bearer Token Authentication",
-        body: "All requests to the VectorStack API must include an Authorization header with your API key. The API uses standard Bearer token format for authentication. Requests sent without a valid token, or with an expired token, will fail with a 401 Unauthorized status.",
+        body: "All requests to the VectorStack API must include an Authorization header with your API key. The API uses standard Bearer token format. Incorrect keys will prompt typical <a href=\"/docs/errors\">error payloads</a>.",
         code: "Authorization: Bearer VECTORSTACK_API_KEY"
       },
       {
         heading: "Token Expiry and Scope",
-        // TEST CHANGE IDEA:
+        // FLOWDOC TEST CHANGE:
         // Change "Access tokens expire after 7 days"
         // to "Access tokens now expire after 15 minutes. Refresh tokens are required for long-running server processes."
         // to test high-priority authentication breaking change detection.
-        body: "Access tokens expire after 7 days and should be stored securely on the server. Do not commit API keys to version control systems. We recommend using environment variables or secret managers to load them at runtime."
+        body: "Access tokens expire after 7 days and should be stored securely on the server. Read about segregating keys in staging/production <a href=\"/docs/environments\">environments</a>."
       },
       {
         heading: "Key Rotation",
-        body: "For compliance and security best practices, we recommend rotating organization API keys every 90 days. You can create multiple keys in the dashboard to enable zero-downtime key rotation: first deploy the new key, then revoke the old one."
+        body: "For compliance and security best practices, we recommend rotating organization API keys every 90 days. Read about <a href=\"/docs/api-keys\">API Keys</a> management to execute rotation without search service downtime."
       }
+    ],
+    relatedLinks: [
+      { text: "API Keys", href: "/docs/api-keys" },
+      { text: "Security", href: "/docs/security" },
+      { text: "API Authentication", href: "/api/authentication" },
+      { text: "Error Codes", href: "/docs/errors" },
+      { text: "Rate Limits", href: "/docs/rate-limits" }
+    ],
+    nextSteps: [
+      { text: "API Keys Guide", description: "Generate and rotate API keys in the dashboard.", href: "/docs/api-keys" },
+      { text: "Error Handling", description: "Understand error structures and request logging.", href: "/docs/errors" }
     ]
   },
   {
@@ -101,24 +134,34 @@ export const docsPages = [
     sections: [
       {
         heading: "Creating Keys",
-        body: "API keys are generated from the VectorStack dashboard under Settings > API Keys. You can create two types of keys: Read-Only keys (restricted to search queries) and Admin keys (full access to index lifecycle, document uploads, and configuration)."
+        body: "API keys are generated from the VectorStack dashboard under Settings > API Keys. You can restrict keys to target specific environments by aligning them under configured roles. Refer to <a href=\"/docs/teams-and-permissions\">teams and permissions</a>."
       },
       {
         heading: "Rotating Keys",
-        body: "To rotate a key without downtime, follow these steps: 1. Generate a new key in the console. 2. Update your server environment configuration to use the new key. 3. Deploy/restart your services. 4. Verify that requests are succeeding. 5. Revoke the old key from the dashboard."
+        body: "To rotate a key without downtime: 1. Generate a new key in the console. 2. Update your server variables. 3. Verify that requests succeed on <a href=\"/status\">status dashboard</a>. 4. Revoke the old key from the dashboard."
       },
       {
         heading: "Revoking Keys",
-        body: "If a key is compromised, revoke it immediately from the console. Revocations are processed globally and take effect in under 2 seconds. Any API requests made with a revoked key will return a 401 INVALID_API_KEY error."
+        body: "If a key is compromised, revoke it immediately. Revocations are processed globally and take effect instantly. Any request made with a revoked key will fail with a 401 error. Track key changes inside <a href=\"/api/audit-logs\">audit logs</a>."
       },
       {
         heading: "Environment Separation",
-        body: "We recommend using separate API keys for your development, staging, and production environments. Never mix index data or configurations between staging and production workloads.",
+        body: "We recommend using separate API keys for your development, staging, and production environments. Never mix index configurations. Check out staging vs prod setups in <a href=\"/docs/environments\">environments guide</a>.",
         callout: {
           type: "tip",
           text: "Restrict production keys to specific server IPs if you require extra network security layers."
         }
       }
+    ],
+    relatedLinks: [
+      { text: "Authentication", href: "/docs/authentication" },
+      { text: "Environments", href: "/docs/environments" },
+      { text: "Security", href: "/docs/security" },
+      { text: "Audit Logs API", href: "/api/audit-logs" }
+    ],
+    nextSteps: [
+      { text: "Review Security", description: "Ensure your keys and systems follow our security guide.", href: "/docs/security" },
+      { text: "Configure Environments", description: "Separate credentials for dev, staging, and production.", href: "/docs/environments" }
     ]
   },
   {
@@ -128,29 +171,36 @@ export const docsPages = [
     sections: [
       {
         heading: "Default Embedding Model",
-        // TEST CHANGE IDEA:
+        // FLOWDOC TEST CHANGE:
         // Change "vectorstack-small with 768 dimensions"
         // to "vectorstack-medium with 1536 dimensions"
         // to test embedding configuration update detection.
-        body: "The default embedding model is vectorstack-small with 768 dimensions. This model is optimized for documentation search, support knowledge bases, and lightweight RAG applications. It provides excellent performance with extremely low inference latencies."
+        body: "The default embedding model is vectorstack-small with 768 dimensions. This model is optimized for documentation search and lightweight RAG applications. It provides excellent performance with extremely low latencies."
       },
       {
         heading: "Model Selection",
-        body: "You can choose between multiple embedding models during index creation. Models include vectorstack-small (768d, general English), vectorstack-multilingual (1024d, 100+ languages), and third-party models from OpenAI, Cohere, or Voyage. Note that once an index is created, its model and dimension cannot be changed."
+        body: "You can choose between multiple embedding models during index creation. Models include vectorstack-small and multilingual structures. Refer to our <a href=\"/docs/vector-indexes\">vector indexes</a> details for index settings. Remember that you cannot modify dimensions once the database is deployed."
       },
       {
         heading: "Dimensions",
-        body: "Vector dimensions represent the coordinate space size. Higher dimensions (e.g. 1536) store richer semantic meaning but increase storage costs and slightly impact retrieval query speeds. Match your model dimension exactly to your index configuration."
+        body: "Vector dimensions represent the coordinate space size. Higher dimensions store richer semantic meaning but increase storage costs. See our <a href=\"/pricing\">pricing plans</a> for storage limitations."
       },
       {
         heading: "Batch Embedding",
-        body: "If you have large text structures, you can use the batch embedding endpoint to embed up to 128 items in a single API call. This significantly reduces HTTP roundtrip overhead.",
+        body: "If you have large text structures, you can use the batch embedding endpoint. Refer to <a href=\"/api/embeddings\">embeddings API</a> for REST schemas.",
         code: "const vectors = await client.embeddings.createBatch({\n  inputs: ['Hello world', 'Semantic search is powerful'],\n  model: 'vectorstack-small'\n});"
-      },
-      {
-        heading: "Compatibility with Indexes",
-        body: "An index will reject vector insertions that do not match its defined dimensions. For example, trying to insert a 1536-dimensional vector into a 768-dimensional index returns a 400 BAD_REQUEST error."
       }
+    ],
+    relatedLinks: [
+      { text: "Vector Indexes", href: "/docs/vector-indexes" },
+      { text: "Document Ingestion", href: "/docs/document-ingestion" },
+      { text: "Chunking Configurations", href: "/docs/chunking" },
+      { text: "Embeddings API", href: "/api/embeddings" },
+      { text: "Indexes API", href: "/api/indexes" }
+    ],
+    nextSteps: [
+      { text: "Create Indexes", description: "Set up vector indexes to store embeddings.", href: "/docs/vector-indexes" },
+      { text: "Ingest Documents", description: "Upload text content to auto-embed.", href: "/docs/document-ingestion" }
     ]
   },
   {
@@ -160,21 +210,27 @@ export const docsPages = [
     sections: [
       {
         heading: "Creating Indexes",
-        body: "An index is the core partition where your documents and embeddings are stored. You can create an index using the SDK or directly in the control panel.",
+        body: "An index is the core partition where your documents and embeddings are stored. You can create an index using the SDK or directly in the control panel. Review options in <a href=\"/api/indexes\">indexes API reference</a>.",
         code: "await client.indexes.create({\n  name: 'support-index',\n  dimension: 768,\n  metric: 'cosine'\n});"
       },
       {
         heading: "Distance Metrics",
-        body: "VectorStack supports Cosine similarity, Dot Product, and L2 (Euclidean) distance metrics. Use Cosine similarity for normalized text embeddings, Dot Product if your embeddings are pre-normalized and speed is critical, and L2 for image embeddings or non-normalized vector values."
+        body: "VectorStack supports Cosine similarity, Dot Product, and L2 distance metrics. Check how distance affects queries under <a href=\"/docs/hybrid-search\">hybrid search</a> setups."
       },
       {
         heading: "Index Lifecycle",
-        body: "Indexes transition through three states: 'creating', 'active', and 'updating'. Ingestion and search requests are only accepted when the index is in the 'active' state. Deleting an index will remove all document text and vector structures permanently."
-      },
-      {
-        heading: "Index Compatibility",
-        body: "Make sure that all documents ingested into a specific index share the same language structure. Mixing English and Chinese documents in the same index may lead to lower recall scores if the embedding model is not specifically optimized for multilingual content."
+        body: "Indexes transition through three states: 'creating', 'active', and 'updating'. Ingestion and search requests are only accepted when the index is in the 'active' state. Deleting an index will remove all document text and vector structures. See <a href=\"/docs/data-retention\">data retention policies</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "Embeddings", href: "/docs/embeddings" },
+      { text: "Document Ingestion", href: "/docs/document-ingestion" },
+      { text: "Indexes API", href: "/api/indexes" },
+      { text: "Data Retention Guidelines", href: "/docs/data-retention" }
+    ],
+    nextSteps: [
+      { text: "Ingest Documents", description: "Start uploading markdown or PDF files.", href: "/docs/document-ingestion" },
+      { text: "Search Configurations", description: "Learn how to query the indexes using semantic search.", href: "/docs/hybrid-search" }
     ]
   },
   {
@@ -184,20 +240,26 @@ export const docsPages = [
     sections: [
       {
         heading: "Supported File Types",
-        body: "The ingestion pipeline accepts PDF (`.pdf`), Markdown (`.md`), HTML (`.html`), and plain text (`.txt`) formats. Max file size is 25MB. Text and markdown are parsed directly, while PDFs are processed using our OCR engines."
+        body: "The ingestion pipeline accepts PDF, Markdown, HTML, and plain text. Max file size is 25MB. Refer to the REST endpoint details under <a href=\"/api/documents\">documents API</a>."
       },
       {
         heading: "Processing Pipeline",
-        body: "When you upload a document, VectorStack runs a multi-stage process: 1. Extraction: file is parsed into plain text. 2. Cleaning: boilerplate HTML, markdown tags, and extra spaces are removed. 3. Chunking: text is divided into manageable segments. 4. Vectorization: chunks are sent to the embedding model. 5. Storage: vectors and raw text chunks are saved to the index."
+        body: "When you upload a document, VectorStack runs a multi-stage process: 1. Extraction: file is parsed into plain text. 2. Cleaning: boilerplate tags are removed. 3. Chunking: text is split. Read details in <a href=\"/docs/chunking\">chunking configurations</a>. 4. Vectorization: chunks are embedded. 5. Storage: vectors are saved to the index."
       },
       {
         heading: "Failed Ingestions",
-        body: "Ingestions can fail if a PDF is password-protected, the file format is corrupt, or rate limits are reached. You can inspect failures in the console logs or register webhooks to receive real-time notifications for failed document events."
-      },
-      {
-        heading: "Retrying Ingestions",
-        body: "If a document upload fails due to network issues, the client SDK will automatically retry the request up to 3 times with exponential backoff. For permanent file parse errors, manual file cleaning is required before re-upload."
+        body: "Ingestions can fail if a PDF is password-protected or file format is corrupt. You can configure <a href=\"/docs/webhooks\">webhook automation</a> to receive real-time alerts on failure events."
       }
+    ],
+    relatedLinks: [
+      { text: "Chunking Guidelines", href: "/docs/chunking" },
+      { text: "Embeddings Details", href: "/docs/embeddings" },
+      { text: "Documents API", href: "/api/documents" },
+      { text: "Webhooks Guide", href: "/docs/webhooks" }
+    ],
+    nextSteps: [
+      { text: "Configure Chunking", description: "Optimize token split boundaries and overlaps.", href: "/docs/chunking" },
+      { text: "Verify Webhooks", description: "Register webhook endpoints to listen for ingestion status.", href: "/docs/webhooks" }
     ]
   },
   {
@@ -207,25 +269,27 @@ export const docsPages = [
     sections: [
       {
         heading: "Default Chunking Strategy",
-        body: "By default, VectorStack splits incoming files into chunks of 800 tokens with 100 tokens of overlap. This ensures that semantic concepts are preserved across boundaries and that context is not lost at the edges of the chunk."
+        body: "By default, VectorStack splits incoming files into chunks of 800 tokens with 100 tokens of overlap. This ensures semantic concepts are preserved across boundaries."
       },
       {
         heading: "Overlap Configuration",
-        body: "The overlap parameter (measured in tokens) defines how much text from the end of one chunk is copied to the beginning of the next. Overlaps are critical for answering queries that span the boundary of a single segment."
+        body: "The overlap parameter defines how much text from the end of one chunk is copied to the beginning of the next. Overlaps are critical for answering queries that span the boundary. Check how this affects retrieval in <a href=\"/docs/rag-pipelines\">RAG pipelines</a>."
       },
       {
         heading: "Custom Chunking",
-        body: "You can specify custom chunking rules when uploading documents. For example, for code databases, you can chunk by function or class signature. For legal contracts, chunking by paragraph is often best.",
+        body: "You can specify custom chunking rules when uploading documents. For example, for code databases, you can chunk by function or class signature.",
         code: "await client.documents.upload({\n  indexId: 'legal-docs',\n  file: contractPdf,\n  chunkingConfig: {\n    strategy: 'paragraph',\n    maxTokens: 500,\n    overlap: 50\n  }\n});"
-      },
-      {
-        heading: "Best Practices",
-        body: "A chunk size that is too small (e.g. 100 tokens) will fail to capture complex context, leading to poor answers from the LLM. Conversely, a chunk size that is too large (e.g. 2000 tokens) will dilute search relevance and consume excessive LLM context tokens. Find the balanced sweet spot for your specific dataset.",
-        callout: {
-          type: "tip",
-          text: "Review the average length of your documents before customizing chunk sizes."
-        }
       }
+    ],
+    relatedLinks: [
+      { text: "Document Ingestion", href: "/docs/document-ingestion" },
+      { text: "RAG Pipelines", href: "/docs/rag-pipelines" },
+      { text: "Metadata Filtering", href: "/docs/metadata-filtering" },
+      { text: "Documents API", href: "/api/documents" }
+    ],
+    nextSteps: [
+      { text: "Build RAG Pipelines", description: "Pass retrieved chunks to large language models.", href: "/docs/rag-pipelines" },
+      { text: "Configure Filters", description: "Restrict search parameters using document metadata.", href: "/docs/metadata-filtering" }
     ]
   },
   {
@@ -235,20 +299,27 @@ export const docsPages = [
     sections: [
       {
         heading: "Pipeline Overview",
-        body: "Retrieval-Augmented Generation (RAG) enhances LLM responses by fetching relevant factual context from a vector database before sending the query to the generator. VectorStack simplifies this by managing the retrieval, scoring, and text generation steps in a single pipeline."
+        body: "Retrieval-Augmented Generation (RAG) enhances LLM responses by fetching relevant factual context from a vector database before sending the query to the generator. Setup dynamic monitoring under <a href=\"/docs/observability\">observability guidelines</a>."
       },
       {
         heading: "Retrieval Step",
-        body: "The retrieval stage searches the vector index for the top K most relevant matches. By default, K is set to 5. You can adjust K depending on the prompt limit of your target LLM. High K increases context depth but also costs more and can sometimes confuse the generator if irrelevant chunks are retrieved."
-      },
-      {
-        heading: "Generation Step",
-        body: "The retrieved chunks are formatted into a clean context prompt and sent to your generation LLM (e.g., GPT-4 or Claude). You can customize the prompt template to instruct the model on tone, behavior, and formatting style."
+        body: "The retrieval stage searches the vector index for the top K matches. You can adjust K depending on the prompt limit of your target LLM. High K increases context depth but also costs more and can sometimes confuse the generator. Track plan limits in our <a href=\"/pricing\">pricing guide</a>."
       },
       {
         heading: "Evaluation",
-        body: "RAG performance should be measured regularly. Track metrics like faithfulness (is the answer based on the context?), answer relevance (does it answer the query?), and retrieval recall (did we retrieve the right chunks?)."
+        body: "RAG performance should be measured regularly. Learn how to verify retrieve context quality and check for hallucinations in our <a href=\"/docs/evaluation\">evaluation documentation</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "Hybrid Search", href: "/docs/hybrid-search" },
+      { text: "Reranking Engine", href: "/docs/reranking" },
+      { text: "Metadata Filtering", href: "/docs/metadata-filtering" },
+      { text: "Search API", href: "/api/search" },
+      { text: "JavaScript SDK", href: "/sdk/javascript" }
+    ],
+    nextSteps: [
+      { text: "RAG Evaluation", description: "Implement quality checks and validation layers.", href: "/docs/evaluation" },
+      { text: "Add Reranking", description: "Use cross-encoders to improve retrieval accuracy.", href: "/docs/reranking" }
     ]
   },
   {
@@ -258,25 +329,23 @@ export const docsPages = [
     sections: [
       {
         heading: "Filter Syntax",
-        body: "VectorStack supports SQL-like metadata filtering. When ingesting documents, you can attach JSON metadata. During query time, you pass a filter object to restrict the search space before similarity matching occurs.",
+        body: "VectorStack supports SQL-like metadata filtering. When ingesting documents, you can attach JSON metadata. During query time, you pass a filter object to restrict the search space before similarity matching occurs. Read more in <a href=\"/api/search\">search API reference</a>.",
         code: "const results = await client.indexes.search({\n  indexId: 'products',\n  query: 'leather jacket',\n  filter: {\n    category: { $eq: 'apparel' },\n    price: { $lt: 150 }\n  }\n});"
       },
       {
         heading: "Supported Operators",
-        body: "Supported operators include equality ($eq, $ne), numeric comparison ($gt, $gte, $lt, $lte), array membership ($in, $nin), and logical combinations ($and, $or, $not)."
-      },
-      {
-        heading: "Nested Metadata",
-        body: "You can index and filter nested JSON fields up to 3 levels deep. For example, `{ attributes: { color: 'blue' } }` can be queried using `filter: { 'attributes.color': { $eq: 'blue' } }`."
-      },
-      {
-        heading: "Common Examples",
-        body: "Filters are commonly used to restrict searches by organizational tenants, user permissions, categories, language tags, or document publication dates.",
-        callout: {
-          type: "tip",
-          text: "Always define indexes on high-cardinality metadata keys in the dashboard for fast query performance."
-        }
+        body: "Supported operators include equality ($eq, $ne), numeric comparison ($gt, $gte, $lt, $lte), and logical combinations ($and, $or). To learn how this combines with hybrid keyword indexes, read <a href=\"/docs/hybrid-search\">hybrid search guide</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "Hybrid Search", href: "/docs/hybrid-search" },
+      { text: "Search API", href: "/api/search" },
+      { text: "Vector Indexes", href: "/docs/vector-indexes" },
+      { text: "Metadata filtering patterns", href: "/blog/metadata-filtering-patterns" }
+    ],
+    nextSteps: [
+      { text: "Hybrid Queries", description: "Mix keyword relevance with metadata filters.", href: "/docs/hybrid-search" },
+      { text: "REST Search API", description: "Inspect search API payloads and endpoints.", href: "/api/search" }
     ]
   },
   {
@@ -285,21 +354,23 @@ export const docsPages = [
     description: "Combine semantic vector search with keyword BM25 search for better recall.",
     sections: [
       {
-        heading: "Semantic Search",
-        body: "Semantic search uses vector similarity to find documents with matching concepts, even if they share no exact keywords. It is excellent for synonym matches (e.g., 'automobile' finding results for 'car') but can perform poorly on product SKUs, code snippets, or rare abbreviations."
-      },
-      {
-        heading: "Keyword Search",
-        body: "Keyword search uses standard TF-IDF or BM25 ranking to match exact characters and words. It excels at matching technical terms, serial numbers, error messages, and names."
+        heading: "Overview",
+        body: "Hybrid search merges semantic vector similarity with keyword-based BM25 ranking. It is useful when exact terms, product names, error codes, or API method names must be preserved. Review weights configurations in <a href=\"/api/search\">search API reference</a>."
       },
       {
         heading: "Weighting and Reciprocal Rank Fusion",
-        body: "Hybrid search merges these two search paths. VectorStack uses Reciprocal Rank Fusion (RRF) to combine results. You can control the relative importance using a 'semanticWeight' slider (0.0 to 1.0). A weight of 0.8 is recommended for most business documentation use cases."
-      },
-      {
-        heading: "Use Cases",
-        body: "Use hybrid search if your users frequently query technical documentation containing API method names (like `client.search()`), code constants, numerical identifiers, or exact names of people/organizations."
+        body: "VectorStack uses Reciprocal Rank Fusion (RRF) to combine results. You can control the relative importance using a 'semanticWeight' slider (0.0 to 1.0). A weight of 0.8 is recommended for most developer docs platforms. See code usages inside <a href=\"/sdk/javascript\">JavaScript SDK</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "Semantic Search", href: "/docs/getting-started" },
+      { text: "Metadata Filtering", href: "/docs/metadata-filtering" },
+      { text: "Reranking", href: "/docs/reranking" },
+      { text: "Search API", href: "/api/search" }
+    ],
+    nextSteps: [
+      { text: "Reranking Setup", description: "Configure cross-encoders to re-evaluate search scores.", href: "/docs/reranking" },
+      { text: "Search API Details", description: "Read technical parameter schemas for search queries.", href: "/api/search" }
     ]
   },
   {
@@ -309,21 +380,27 @@ export const docsPages = [
     sections: [
       {
         heading: "When to Use Reranking",
-        body: "Reranking should be used when maximum retrieval accuracy is required. Vector similarity search is fast but can miss complex query-document dependencies. A reranker (cross-encoder model) inspects the actual words of the query and the top documents together to calculate a highly accurate relevance score."
+        body: "Reranking should be used when maximum retrieval accuracy is required. A reranker (cross-encoder model) inspects the actual words of the query and the top documents together. Read about advanced RAG systems in <a href=\"/docs/rag-pipelines\">RAG pipelines guide</a>."
       },
       {
         heading: "Performance Impact",
-        body: "Because rerankers process the full query and document text together, they add latency. Reranking the top 25 documents typically adds 50-100ms to the request. We recommend using rerankers for background processes or Q&A search engines where accuracy overrides sub-50ms latency goals."
-      },
-      {
-        heading: "Cost Impact",
-        body: "Rerank requests are billed separately per document scored. To manage costs, only rerank the top 20 or 30 documents retrieved from the vector index, rather than large sets of hundreds of records."
+        body: "Because rerankers process the full query and document text together, they add latency (typically 50-100ms). Track API latency metrics under <a href=\"/docs/observability\">observability dashboard guides</a>."
       },
       {
         heading: "Configuration",
-        body: "To enable reranking, pass a rerank configuration object in your search request. Specify the rerank model and the number of documents to evaluate.",
+        body: "To enable reranking, pass a rerank configuration object in your search request. Specify the rerank model and the number of documents to evaluate. Review parameters in <a href=\"/api/rerank\">rerank API reference</a>.",
         code: "const results = await client.indexes.search({\n  indexId: 'kb',\n  query: 'How do I cancel my subscription?',\n  rerank: {\n    model: 'vectorstack-rerank-large',\n    topK: 10\n  }\n});"
       }
+    ],
+    relatedLinks: [
+      { text: "RAG Pipelines", href: "/docs/rag-pipelines" },
+      { text: "Hybrid Search", href: "/docs/hybrid-search" },
+      { text: "Rerank API", href: "/api/rerank" },
+      { text: "Evaluating RAG Quality", href: "/blog/evaluating-rag-quality" }
+    ],
+    nextSteps: [
+      { text: "Rerank REST API", description: "Learn about the /v1/rerank HTTP schema.", href: "/api/rerank" },
+      { text: "RAG Evaluation", description: "Validate your retrieval outcomes with quality frameworks.", href: "/docs/evaluation" }
     ]
   },
   {
@@ -333,21 +410,28 @@ export const docsPages = [
     sections: [
       {
         heading: "Webhook Endpoint Setup",
-        body: "To receive events, register an HTTPS endpoint in the VectorStack developer console. The endpoint must respond with a `200 OK` status within 3 seconds of receiving a payload, or the event will be queued for retry."
+        body: "To receive events, register an HTTPS endpoint in the VectorStack developer console. The endpoint must respond with a `200 OK` status. Setup your endpoint details via <a href=\"/api/webhooks\">webhooks API</a>."
       },
       {
         heading: "Event Types",
-        body: "Supported webhook events include `document.ingested` (when document parsing and embedding succeeds), `document.failed` (when parsing fails), `index.created`, and `search.completed`. The payload contains the event type, timestamp, and relevant resources."
-      },
-      {
-        heading: "Retry Behavior",
-        body: "If your server is down, VectorStack will retry delivery up to 12 times over 24 hours using exponential backoff. You can inspect delivery attempts and payloads in the Webhook logs."
+        body: "Supported webhook events include `document.ingested`, `document.failed`, `index.created`, and `search.completed`. The payload contains the resource tags. Read how to analyze events in <a href=\"/docs/observability\">observability guides</a>."
       },
       {
         heading: "Signature Verification",
-        body: "Every webhook payload is signed with an HMAC-SHA256 signature in the `X-VectorStack-Signature` header. You should verify this signature using your endpoint's signing secret to guarantee the request originated from VectorStack.",
+        body: "Every webhook payload is signed with an HMAC-SHA256 signature in the header. Verify this signature using your secret signing key to guarantee authenticity. Read details under <a href=\"/docs/security\">security protocols</a>.",
         code: "const crypto = require('crypto');\nconst expectedSignature = crypto.createHmac('sha256', secret).update(payloadBody).digest('hex');"
       }
+    ],
+    relatedLinks: [
+      { text: "Webhooks API", href: "/api/webhooks" },
+      { text: "Security Guidelines", href: "/docs/security" },
+      { text: "Error Codes", href: "/docs/errors" },
+      { text: "Changelog", href: "/changelog" },
+      { text: "System Status", href: "/status" }
+    ],
+    nextSteps: [
+      { text: "Webhooks REST API", description: "Configure webhooks programmatically using REST calls.", href: "/api/webhooks" },
+      { text: "Audit Logs Log", description: "Verify webhook registration events inside organizational audit files.", href: "/api/audit-logs" }
     ]
   },
   {
@@ -357,21 +441,23 @@ export const docsPages = [
     sections: [
       {
         heading: "Error Format",
-        body: "The API returns structured JSON error bodies when requests fail. Every error response includes a standard HTTP status, a machine-readable error code, a detailed explanation message, and a unique `requestId` for debugging.",
+        body: "The API returns structured JSON error bodies when requests fail. Every response includes standard HTTP status, machine-readable code, and a unique `requestId` for debugging. Check out parameters under <a href=\"/api/errors\">API errors reference</a>.",
         code: "{\n  \"error\": {\n    \"code\": \"INVALID_API_KEY\",\n    \"message\": \"The provided API key is invalid or has been revoked.\",\n    \"requestId\": \"req_9a8b7c6d5e\"\n  }\n}"
       },
       {
         heading: "Common Errors",
-        body: "Common error codes include: 400 `BAD_REQUEST` (invalid dimensions, syntax errors), 401 `INVALID_API_KEY` (missing or revoked token), 403 `INSUFFICIENT_PERMISSIONS` (write actions with read-only keys), 404 `INDEX_NOT_FOUND`, 429 `RATE_LIMITED`, and 500 `INTERNAL_ERROR`."
-      },
-      {
-        heading: "Retryable Errors",
-        body: "Only HTTP 429 and HTTP 5xx errors are safe to retry. Do not auto-retry 400 or 401 errors, as they represent configuration issues that require code changes."
-      },
-      {
-        heading: "Debugging Request IDs",
-        body: "When reporting bugs or troubleshooting index issues with support, always provide the `requestId` returned in the error payload. This allows support engineers to quickly locate the exact execution path in our log systems."
+        body: "Common error codes include: 400 `BAD_REQUEST`, 401 `INVALID_API_KEY`, 403 `INSUFFICIENT_PERMISSIONS`, 404 `INDEX_NOT_FOUND`, and 429 `RATE_LIMITED`. Understand permissions configurations in <a href=\"/docs/teams-and-permissions\">teams and permissions</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "API Errors", href: "/api/errors" },
+      { text: "Authentication", href: "/docs/authentication" },
+      { text: "Rate Limits", href: "/docs/rate-limits" },
+      { text: "Observability Guides", href: "/docs/observability" }
+    ],
+    nextSteps: [
+      { text: "API Errors List", description: "Browse all REST error definitions and codes.", href: "/api/errors" },
+      { text: "Check Rate Limits", description: "Learn about transaction constraints and headers.", href: "/docs/rate-limits" }
     ]
   },
   {
@@ -381,25 +467,31 @@ export const docsPages = [
     sections: [
       {
         heading: "Free Limits",
-        // TEST CHANGE IDEA:
+        // FLOWDOC TEST CHANGE:
         // Change "Free projects may send 100 search requests per minute."
         // to "Free projects may send 30 search requests per minute."
         // to test rate limits modification detection.
-        body: "Free projects may send 100 search requests per minute. Free tier indexes that remain inactive for 30 consecutive days will be paused and archived to save system resources. You can wake a paused index instantly from the control dashboard."
+        body: "Free projects may send 100 search requests per minute. Free tier indexes that remain inactive for 30 consecutive days will be archived. You can check details under <a href=\"/pricing\">pricing plans</a>."
       },
       {
         heading: "Pro Limits",
-        body: "Pro projects may send 10,000 search requests per minute. Pro tier indexes are deployed on dedicated virtual nodes, which guarantees baseline CPU/RAM resources and prevents noisy-neighbor performance fluctuations."
-      },
-      {
-        heading: "Burst Behavior",
-        body: "We support short bursts up to 2x your rate limit for a maximum of 10 seconds. Beyond that, requests are choked and return a 429 Rate Limited response."
+        body: "Pro projects may send 10,000 search requests per minute. Pro tier indexes are deployed on dedicated virtual nodes. Track transactional usage metrics inside <a href=\"/api/usage\">usage API reference</a>."
       },
       {
         heading: "Retry Strategy",
-        body: "When rate limited, inspect the `Retry-After-Ms` header returned in the API response. We recommend implementing token bucket algorithms or exponential backoff queues in your SDK integrations.",
+        body: "When rate limited, inspect the `Retry-After-Ms` header returned in the API response. We recommend implementing token bucket algorithms. Read SDK implementation details in <a href=\"/sdk/javascript\">JavaScript SDK</a>.",
         code: "const retryAfter = response.headers.get('retry-after-ms') || 1000;\nawait sleep(retryAfter);\nreturn client.indexes.search(...);"
       }
+    ],
+    relatedLinks: [
+      { text: "Pricing", href: "/pricing" },
+      { text: "Usage API", href: "/api/usage" },
+      { text: "Billing Reference", href: "/api/billing" },
+      { text: "JavaScript SDK", href: "/sdk/javascript" }
+    ],
+    nextSteps: [
+      { text: "Usage Monitoring", description: "Track your real-time ingestion and search volumes.", href: "/api/usage" },
+      { text: "Plan Pricing", description: "Compare available subscriptions and quota packages.", href: "/pricing" }
     ]
   },
   {
@@ -409,25 +501,26 @@ export const docsPages = [
     sections: [
       {
         heading: "Data Encryption",
-        // TEST CHANGE IDEA:
+        // FLOWDOC TEST CHANGE:
         // Change "VectorStack encrypts data in transit and at rest."
         // to "VectorStack encrypts data in transit using TLS 1.3 and at rest using AES-256-GCM."
         // to test minor security changes detection.
-        body: "VectorStack encrypts data in transit and at rest. We utilize enterprise-grade encryption standard keys to prevent unauthorized network eavesdropping or hardware drive access."
+        body: "VectorStack encrypts data in transit and at rest. We utilize enterprise-grade encryption standard keys to prevent unauthorized access. Learn about environment separation in <a href=\"/docs/environments\">environments guide</a>."
       },
       {
-        heading: "Webhook Signatures",
-        body: "All webhook payloads contain an HMAC-SHA256 signature calculated using the raw body bytes and your secret signing key. Never skip this verification in production applications, as it prevents mock requests from malicious external origins.",
-        code: "const signature = headers['x-vectorstack-signature'];\nconst verified = verifySignature(body, secret, signature);"
-      },
-      {
-        heading: "Key Rotation",
-        body: "We recommend automating API key rotation every 90 days. The admin control API lets you write cron jobs that generate, deploy, and retire organization keys systematically."
-      },
-      {
-        heading: "Access Control",
-        body: "Define roles (Owner, Administrator, Read-Write, Read-Only) for all team members in your organization console. Restrict production API access to backend servers."
+        heading: "Access Control & Teams",
+        body: "Define roles (Owner, Administrator, Read-Only) for all team members in your organization console. Restrict production API access to backend servers. Read details in <a href=\"/docs/teams-and-permissions\">teams and permissions documentation</a>."
       }
+    ],
+    relatedLinks: [
+      { text: "Authentication", href: "/docs/authentication" },
+      { text: "API Keys", href: "/docs/api-keys" },
+      { text: "Environments", href: "/docs/environments" },
+      { text: "Teams and Permissions", href: "/docs/teams-and-permissions" }
+    ],
+    nextSteps: [
+      { text: "Teams & Permissions", description: "Set up project security access controls.", href: "/docs/teams-and-permissions" },
+      { text: "Configure Environments", description: "Separate staging, dev, and production keys.", href: "/docs/environments" }
     ]
   },
   {
@@ -437,29 +530,234 @@ export const docsPages = [
     sections: [
       {
         heading: "Overview",
-        body: "VectorStack v2 introduces streamlined endpoints, improved error formatting, and a more structured SDK namespace. We are deprecating the old v1 endpoints on December 31. Please upgrade your packages before the deprecation date."
-      },
-      {
-        heading: "Breaking Changes",
-        body: "The search namespace has changed. The search API now is located under the index path rather than the root directory: `client.search()` is replaced with `client.indexes.search()`. The query parameters are now nested for better clean readability."
+        body: "VectorStack v2 introduces streamlined endpoints, improved error formatting, and a more structured SDK namespace. We are deprecating the old v1 endpoints. Please upgrade your packages. Read about deprecations on <a href=\"/deprecated-old-api\">deprecated v0 page</a>."
       },
       {
         heading: "SDK Migration",
-        body: "To upgrade the JS SDK, run `npm install vectorstack@latest` and replace the search calls:",
+        body: "To upgrade the JS SDK, run `npm install vectorstack@latest` and replace the search calls. Read about the new <a href=\"/sdk/node\">Node SDK</a> and <a href=\"/sdk/edge-runtime\">Edge Runtime SDK</a> updates.",
         code: "// v1 SDK (Deprecated)\nconst results = await client.search({ query, indexId });\n\n// v2 SDK\nconst results = await client.indexes.search({ indexId, query });"
-      },
-      {
-        heading: "API Migration",
-        body: "For REST calls, change the endpoint URL from `/v1/search` to `/v1/indexes/:indexId/search`."
-      },
-      {
-        heading: "Compatibility Notes",
-        body: "Both v1 and v2 clients can query the same index structures simultaneously. You do not need to rebuild or re-embed your existing databases to migrate code.",
-        callout: {
-          type: "info",
-          text: "The v1 endpoint will return warnings in the headers before being deactivated completely."
-        }
       }
+    ],
+    relatedLinks: [
+      { text: "JavaScript SDK", href: "/sdk/javascript" },
+      { text: "Node SDK", href: "/sdk/node" },
+      { text: "Edge SDK", href: "/sdk/edge-runtime" },
+      { text: "Deprecated v0 Page", href: "/deprecated-old-api" }
+    ],
+    nextSteps: [
+      { text: "SDK Reference", description: "Read standard classes for JavaScript integrations.", href: "/sdk/javascript" },
+      { text: "V0 Deprecations", description: "Inspect APIs scheduled for shutdown.", href: "/deprecated-old-api" }
+    ]
+  },
+  {
+    slug: "observability",
+    title: "Observability",
+    description: "Track request logs, latency tracking, ingestion tracing, and search analytics.",
+    sections: [
+      {
+        heading: "Request Logs & Auditing",
+        body: "VectorStack maintains detailed logs of every HTTP request. Request logging allows engineers to troubleshoot failed API queries. You can query logs programmatically using the <a href=\"/api/audit-logs\">audit logs API</a>."
+      },
+      {
+        heading: "Latency Tracking",
+        body: "Uptime and search latency are visible in real-time. For standard configurations, query responses take less than 15ms. To see current health metrics, check our <a href=\"/status\">status dashboard</a>."
+      },
+      {
+        heading: "Pipeline Tracing",
+        body: "For multi-stage configurations, tracing tracks steps from chunk extraction to final vector database uploads. Learn about extraction structures in the <a href=\"/docs/rag-pipelines\">RAG pipelines guide</a> and check out how to inspect <a href=\"/docs/errors\">errors</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Audit Logs API", href: "/api/audit-logs" },
+      { text: "RAG Pipelines", href: "/docs/rag-pipelines" },
+      { text: "System Status", href: "/status" },
+      { text: "Error Codes Guide", href: "/docs/errors" }
+    ],
+    nextSteps: [
+      { text: "API Audit Logs", description: "Query system changes and key access records.", href: "/api/audit-logs" },
+      { text: "Check Latency", description: "Inspect current API performance averages.", href: "/status" }
+    ]
+  },
+  {
+    slug: "evaluation",
+    title: "Evaluation",
+    description: "Evaluate RAG responses, context recall, and similarity score distributions.",
+    sections: [
+      {
+        heading: "Evaluating RAG Quality",
+        body: "To guarantee reliability, we support testing context retrieval against target queries. Check out our technical blog post about <a href=\"/blog/evaluating-rag-quality\">evaluating RAG quality</a>."
+      },
+      {
+        heading: "Hallucination Checks",
+        body: "Evaluate if the generator's response is grounded in the retrieved chunks. By filtering out non-grounded details, you can configure thresholds to block incorrect answers. Read more about chunk retrieval in the <a href=\"/docs/rag-pipelines\">RAG pipelines guide</a>."
+      },
+      {
+        heading: "Retrieval Recall Metrics",
+        body: "Recall checks measure whether target records are present in similarity sets. If recall drops, implement a secondary scoring layer using our <a href=\"/docs/reranking\">reranking guide</a>. Integrate search queries via the <a href=\"/api/search\">search API reference</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "RAG Pipelines", href: "/docs/rag-pipelines" },
+      { text: "Reranking", href: "/docs/reranking" },
+      { text: "Search API Reference", href: "/api/search" },
+      { text: "Evaluating RAG Quality Blog", href: "/blog/evaluating-rag-quality" }
+    ],
+    nextSteps: [
+      { text: "RAG Quality Blog", description: "Read best practices on evaluation metrics.", href: "/blog/evaluating-rag-quality" },
+      { text: "Setup Reranking", description: "Configure cross-encoders for maximum precision.", href: "/docs/reranking" }
+    ]
+  },
+  {
+    slug: "deployments",
+    title: "Deployments",
+    description: "Deploy VectorStack integrations in staging and production structures safely.",
+    sections: [
+      {
+        heading: "Production Checklist",
+        body: "Before launching, guarantee that you separate staging and production databases. You can achieve this by configuring keys for separate <a href=\"/docs/environments\">environments</a>."
+      },
+      {
+        heading: "API Key Management",
+        body: "Do not reuse staging keys. Setup restricted production tokens in the <a href=\"/docs/api-keys\">API keys documentation</a>."
+      },
+      {
+        heading: "Quota & Usage Limits",
+        body: "Production applications should monitor transaction sizes to avoid hitting rate constraints. Check metrics details under <a href=\"/api/usage\">usage API guide</a> and verify cluster health on the <a href=\"/status\">status page</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Environments", href: "/docs/environments" },
+      { text: "API Keys", href: "/docs/api-keys" },
+      { text: "Usage API", href: "/api/usage" },
+      { text: "System Status", href: "/status" }
+    ],
+    nextSteps: [
+      { text: "Configure Environments", description: "Set up staging and production database partitions.", href: "/docs/environments" },
+      { text: "Monitor Usage Metrics", description: "Verify API quotas and active request logs.", href: "/api/usage" }
+    ]
+  },
+  {
+    slug: "environments",
+    title: "Environments",
+    description: "Configure staging, development, and production project environments.",
+    sections: [
+      {
+        heading: "Multi-Environment Layout",
+        body: "VectorStack supports environment partitions. You can separate staging logs from production vectors. Access tokens are scoped to these environments. Review <a href=\"/docs/api-keys\">API keys rotation</a>."
+      },
+      {
+        heading: "Staging vs Production",
+        body: "We recommend deploying staging indexes on shared capacity and production indexes on dedicated virtual nodes. Learn about security boundaries inside <a href=\"/docs/security\">security standards</a> and deployments details in <a href=\"/docs/deployments\">deployments guide</a>. Manage environments via <a href=\"/api/projects\">projects API reference</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "API Keys", href: "/docs/api-keys" },
+      { text: "Security", href: "/docs/security" },
+      { text: "Deployments", href: "/docs/deployments" },
+      { text: "Projects API", href: "/api/projects" }
+    ],
+    nextSteps: [
+      { text: "Manage Projects API", description: "Create environments programmatically using projects API.", href: "/api/projects" },
+      { text: "Setup API Keys", description: "Configure environment scoped API keys.", href: "/docs/api-keys" }
+    ]
+  },
+  {
+    slug: "teams-and-permissions",
+    title: "Teams and Permissions",
+    description: "Manage organization roles, team member access, and resource permissions.",
+    sections: [
+      {
+        heading: "User Roles & Policies",
+        body: "Restrict dashboard and project actions using Role-Based Access Control (RBAC). Roles include Owner, Admin, and Read-Only. Monitor access details in the <a href=\"/api/audit-logs\">audit logs API</a>."
+      },
+      {
+        heading: "Security Scoping",
+        body: "Ensure that read-only API keys are deployed for client-side search routing, while write keys are kept private on backend servers. Review details in <a href=\"/docs/security\">security specifications</a> and <a href=\"/docs/api-keys\">API keys setups</a>. Segregate organizational levels inside <a href=\"/docs/environments\">environments</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Audit Logs API", href: "/api/audit-logs" },
+      { text: "Security", href: "/docs/security" },
+      { text: "API Keys", href: "/docs/api-keys" },
+      { text: "Environments", href: "/docs/environments" }
+    ],
+    nextSteps: [
+      { text: "Review Audit Logs", description: "Audit key actions and organization modifications.", href: "/api/audit-logs" },
+      { text: "Configure Security", description: "Set up security tokens and firewall rules.", href: "/docs/security" }
+    ]
+  },
+  {
+    slug: "data-retention",
+    title: "Data Retention",
+    description: "Understand our database storage, log retention, and vector archives policies.",
+    sections: [
+      {
+        heading: "Retention Schedules",
+        body: "Data retention defines the duration records are kept: document text resides until deletion, request logs are archived for 30 days, and deleted indexes are purged instantly. Learn details under <a href=\"/docs/security\">security guidelines</a>."
+      },
+      {
+        heading: "Retention & Backup Plans",
+        body: "Verify that backup rules coincide with compliance frameworks. View <a href=\"/docs/backups\">backups configurations</a>. Manage raw items using the <a href=\"/api/documents\">documents API reference</a>. Review tier storage capacities under <a href=\"/pricing\">pricing plans</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Security Standards", href: "/docs/security" },
+      { text: "Backup Configurations", href: "/docs/backups" },
+      { text: "Documents API Reference", href: "/api/documents" },
+      { text: "Pricing", href: "/pricing" }
+    ],
+    nextSteps: [
+      { text: "Ingest Docs API", description: "Manage document lifespan using ingestion calls.", href: "/api/documents" },
+      { text: "Configure Backups", description: "Define snapshot intervals for vector databases.", href: "/docs/backups" }
+    ]
+  },
+  {
+    slug: "backups",
+    title: "Backups",
+    description: "Manage database snapshots, indices restore processes, and project backups.",
+    sections: [
+      {
+        heading: "Index Snapshot Policies",
+        body: "VectorStack takes hourly backup snapshots of all production indexes. Snapshots protect index structures from corrupt files. Read data lifecycle rules in <a href=\"/docs/data-retention\">data retention guidelines</a>."
+      },
+      {
+        heading: "Disaster Recovery",
+        body: "Restore snapshots directly to active environments to resume operations. Read details in our <a href=\"/docs/security\">security manual</a>. Manage index structures via the <a href=\"/api/indexes\">indexes API reference</a> and check server uptime status on the <a href=\"/status\">status dashboard</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Data Retention", href: "/docs/data-retention" },
+      { text: "Security Guidelines", href: "/docs/security" },
+      { text: "Indexes API Reference", href: "/api/indexes" },
+      { text: "System Status", href: "/status" }
+    ],
+    nextSteps: [
+      { text: "Indexes REST API", description: "Verify program index deletion and recovery settings.", href: "/api/indexes" },
+      { text: "Check System Uptime", description: "Review overall platform stability metrics.", href: "/status" }
+    ]
+  },
+  {
+    slug: "custom-domains",
+    title: "Custom Domains",
+    description: "Map your own domains to hosted search portals and docs pages.",
+    sections: [
+      {
+        heading: "Domain Configuration",
+        body: "Map custom subdomains (e.g. `docs.mycompany.com`) to hosted search interfaces. All custom domains are secured with automated SSL renewals. Read details under <a href=\"/docs/security\">security parameters</a>."
+      },
+      {
+        heading: "Deploying Domain Maps",
+        body: "Configure CNAME records in your DNS manager to target our proxy gateways. Read deployment guidelines in <a href=\"/docs/deployments\">deployments guide</a>. Upgrading to a custom domain requires a Pro plan. Check features on our <a href=\"/pricing\">pricing page</a>."
+      }
+    ],
+    relatedLinks: [
+      { text: "Security Guidelines", href: "/docs/security" },
+      { text: "Deployments", href: "/docs/deployments" },
+      { text: "Pricing", href: "/pricing" }
+    ],
+    nextSteps: [
+      { text: "Staged Deployments", description: "Map domains to custom staging environment layouts.", href: "/docs/deployments" },
+      { text: "Upgrade Plans", description: "Upgrade your account to activate vanity subdomains.", href: "/pricing" }
     ]
   }
 ];

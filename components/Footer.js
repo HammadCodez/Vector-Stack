@@ -37,6 +37,9 @@ export default function Footer() {
             <Link href="/deprecated-old-api" className="deprecated-link">
               Deprecated v0 API Reference
             </Link>
+            <Link href="/test-link-map" style={{ color: "var(--accent-cyan)", fontWeight: 500 }}>
+              Sitemap Link Map
+            </Link>
           </div>
         </div>
       </div>
