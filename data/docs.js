@@ -102,6 +102,11 @@ export const docsPages = [
         heading: "Upgrading the SDK Client",
         body: "To upgrade the client libraries to the latest stable release, run the update command for your respective package manager. Keeping the client updated ensures compatibility with newly released indexing configurations. If you are migrating custom code from legacy versions, refer to the <a href=\"/docs/migration-v1-to-v2\">v1 to v2 migration guide</a> for breaking API changes.",
         code: "# JavaScript / Node.js\nnpm update vectorstack\n\n# Python\npip install --upgrade vectorstack"
+      },
+      {
+        heading: "Configuration Options",
+        body: "You can customize client configurations during initialization. Supported parameters include connection timeouts, maximum retry count, and custom headers. Passing a custom proxy is useful when deploying inside corporate firewalls. Learn more about deployment structures under <a href=\"/docs/deployments\">deployments guide</a>.",
+        code: "const client = new VectorStack({\n  apiKey: process.env.VECTORSTACK_API_KEY,\n  timeoutMs: 5000,\n  maxRetries: 5,\n  headers: { 'X-Custom-Header': 'App-Value' }\n});"
       }
     ],
     relatedLinks: [
