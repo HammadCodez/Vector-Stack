@@ -84,6 +84,19 @@ export const docsPages = [
         heading: "Docker Local Sandbox",
         body: "For local testing and offline development, we distribute a pre-configured Docker image containing a localized VectorStack database server. This lets you debug search indexes and build your integration locally without hitting the cloud platform or accumulating usage counts. Refer to the <a href=\"/docs/environments\">environments guide</a> to see how to switch connection URLs.",
         code: "docker run -p 8080:8080 vectorstack/sandbox:latest"
+      },
+      {
+        heading: "Verifying the Installation",
+        body: "To confirm that the SDK client is properly installed and connected, run a test script that instantiates the client and retrieves the version. This helps verify that the environment variables are loaded correctly and that there are no package import conflicts. Read more about credentials rotation in our <a href=\"/docs/api-keys\">API keys guide</a>.",
+        code: "const { VectorStack } = require('vectorstack');\nconst client = new VectorStack({ apiKey: process.env.VECTORSTACK_API_KEY });\nconsole.log('Client SDK version:', client.version);"
+      },
+      {
+        heading: "Troubleshooting Ingestion Errors",
+        body: "If you encounter errors during installation, verify that your local environment supports the required engines. Common issues include node version mismatches (ensure Node.js 18+ is active) or permission locks during npm install. Refer to our <a href=\"/docs/errors\">errors database guide</a> to inspect specific status codes, or check overall platform stability metrics on the <a href=\"/status\">status page</a>.",
+        callout: {
+          type: "warning",
+          text: "If your npm installation fails due to permissions, avoid running with sudo. Use npm-profile configurations instead."
+        }
       }
     ],
     relatedLinks: [
