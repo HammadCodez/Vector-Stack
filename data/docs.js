@@ -97,6 +97,11 @@ export const docsPages = [
           type: "warning",
           text: "If your npm installation fails due to permissions, avoid running with sudo. Use npm-profile configurations instead."
         }
+      },
+      {
+        heading: "Upgrading the SDK Client",
+        body: "To upgrade the client libraries to the latest stable release, run the update command for your respective package manager. Keeping the client updated ensures compatibility with newly released indexing configurations. If you are migrating custom code from legacy versions, refer to the <a href=\"/docs/migration-v1-to-v2\">v1 to v2 migration guide</a> for breaking API changes.",
+        code: "# JavaScript / Node.js\nnpm update vectorstack\n\n# Python\npip install --upgrade vectorstack"
       }
     ],
     relatedLinks: [
