@@ -79,6 +79,11 @@ export const docsPages = [
           type: "warning",
           text: "Never use VectorStack SDKs directly in the browser or mobile applications with master API keys."
         }
+      },
+      {
+        heading: "Docker Local Sandbox",
+        body: "For local testing and offline development, we distribute a pre-configured Docker image containing a localized VectorStack database server. This lets you debug search indexes and build your integration locally without hitting the cloud platform or accumulating usage counts. Refer to the <a href=\"/docs/environments\">environments guide</a> to see how to switch connection URLs.",
+        code: "docker run -p 8080:8080 vectorstack/sandbox:latest"
       }
     ],
     relatedLinks: [
