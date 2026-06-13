@@ -10,13 +10,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Docs", href: "/docs" },
-    { name: "API", href: "/api" },
-    { name: "SDK", href: "/sdk" },
-    { name: "Changelog", href: "/changelog" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Status", href: "/status" },
-    { name: "Blog", href: "/blog" }
+    { name: "Getting Started", href: "/docs/getting-started" },
+    { name: "Installation", href: "/docs/installation" },
+    { name: "Search API", href: "/api/search" },
+    { name: "JS SDK", href: "/sdk/javascript" }
   ];
 
   const isActive = (href) => {
@@ -43,7 +40,7 @@ export default function Navbar() {
               href={link.href}
               className={`nav-link ${isActive(link.href) ? "active" : ""}`}
             >
-              {link.name}
+              {navLinks.find((l) => l.href === link.href)?.name || link.name}
             </Link>
           ))}
         </nav>

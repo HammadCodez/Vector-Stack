@@ -18,28 +18,15 @@ export default function Footer() {
 
         <div className="footer-links-grid">
           <div className="footer-links-column">
-            <h4>Resources</h4>
-            <Link href="/docs">Documentation</Link>
-            <Link href="/api">API Reference</Link>
-            <Link href="/sdk">SDK Libraries</Link>
+            <h4>Documentation</h4>
+            <Link href="/docs/getting-started">Getting Started</Link>
+            <Link href="/docs/installation">Installation</Link>
           </div>
 
           <div className="footer-links-column">
-            <h4>Platform</h4>
-            <Link href="/changelog">Changelog</Link>
-            <Link href="/pricing">Pricing Plans</Link>
-            <Link href="/status">System Status</Link>
-          </div>
-
-          <div className="footer-links-column">
-            <h4>Company & Legal</h4>
-            <Link href="/blog">Technical Blog</Link>
-            <Link href="/deprecated-old-api" className="deprecated-link">
-              Deprecated v0 API Reference
-            </Link>
-            <Link href="/test-link-map" style={{ color: "var(--accent-cyan)", fontWeight: 500 }}>
-              Sitemap Link Map
-            </Link>
+            <h4>References</h4>
+            <Link href="/api/search">Search API</Link>
+            <Link href="/sdk/javascript">JavaScript SDK</Link>
           </div>
         </div>
       </div>
