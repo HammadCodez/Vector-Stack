@@ -31,6 +31,11 @@ export const docsPages = [
         code: "const stats = await client.indexes.getStats({\n  indexId: 'articles-kb'\n});\nconsole.log('Total documents indexed:', stats.documentCount);"
       },
       {
+        heading: "Handling Errors and Retries",
+        body: "When executing API requests, ensure you handle potential network anomalies and rate limits (HTTP 429) gracefully. The client SDK exposes standard error properties to inspect query timeouts and check organization quotas.",
+        code: "try {\n  const results = await client.indexes.search({\n    indexId: 'articles-kb',\n    query: 'query string'\n  });\n} catch (err) {\n  if (err.code === 'RATE_LIMITED') {\n    console.warn('API limit reached. Retry after:', err.retryAfterMs);\n  }\n}"
+      },
+      {
         heading: "Cleaning Up Resources",
         body: "When an index is no longer needed, you can delete it to prevent incurring charges. Note that this action is permanent and all stored vector embeddings and metadata will be lost immediately. Make sure to export any critical data before deleting.",
         code: "await client.indexes.delete({\n  indexId: 'articles-kb'\n});\nconsole.log('Index deleted successfully');"
