@@ -31,6 +31,11 @@ export const docsPages = [
         code: "const stats = await client.indexes.getStats({\n  indexId: 'articles-kb'\n});\nconsole.log('Total documents indexed:', stats.documentCount);"
       },
       {
+        heading: "Configuring Metadata Filters",
+        body: "Narrow down search results by supplying a filters object. Metadata filters support comparison operations such as equality, inclusion, or numeric range boundaries to retrieve vectors associated with specific categories, users, or dates.",
+        code: "const results = await client.indexes.search({\n  indexId: 'articles-kb',\n  query: 'How to scale vector indices?',\n  filters: {\n    category: 'tutorials',\n    visibility: 'public'\n  }\n});"
+      },
+      {
         heading: "Handling Errors and Retries",
         body: "When executing API requests, ensure you handle potential network anomalies and rate limits (HTTP 429) gracefully. The client SDK exposes standard error properties to inspect query timeouts and check organization quotas.",
         code: "try {\n  const results = await client.indexes.search({\n    indexId: 'articles-kb',\n    query: 'query string'\n  });\n} catch (err) {\n  if (err.code === 'RATE_LIMITED') {\n    console.warn('API limit reached. Retry after:', err.retryAfterMs);\n  }\n}"
