@@ -24,6 +24,11 @@ export const docsPages = [
         heading: "Searching Vector Chunks",
         body: "Submit natural language queries to retrieve the top matching document segments. The query is automatically embedded. Review the REST endpoint payload schemas inside the <a href=\"/api/search\">search API reference</a>.",
         code: "const results = await client.indexes.search({\n  indexId: 'articles-kb',\n  query: 'How to scale vector indices?'\n});"
+      },
+      {
+        heading: "Verifying Connection Health",
+        body: "Once your client is configured and your index is populated, you can check connection status or retrieve the active configuration. You can verify that your client is running correctly by querying the index information endpoint to return active document counts and index details.",
+        code: "const stats = await client.indexes.getStats({\n  indexId: 'articles-kb'\n});\nconsole.log('Total documents indexed:', stats.documentCount);"
       }
     ],
     relatedLinks: [
