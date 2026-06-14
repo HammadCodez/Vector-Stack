@@ -29,6 +29,11 @@ export const docsPages = [
         heading: "Verifying Connection Health",
         body: "Once your client is configured and your index is populated, you can check connection status or retrieve the active configuration. You can verify that your client is running correctly by querying the index information endpoint to return active document counts and index details.",
         code: "const stats = await client.indexes.getStats({\n  indexId: 'articles-kb'\n});\nconsole.log('Total documents indexed:', stats.documentCount);"
+      },
+      {
+        heading: "Cleaning Up Resources",
+        body: "When an index is no longer needed, you can delete it to prevent incurring charges. Note that this action is permanent and all stored vector embeddings and metadata will be lost immediately. Make sure to export any critical data before deleting.",
+        code: "await client.indexes.delete({\n  indexId: 'articles-kb'\n});\nconsole.log('Index deleted successfully');"
       }
     ],
     relatedLinks: [
