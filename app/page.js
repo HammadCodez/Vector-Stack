@@ -1,5 +1,7 @@
 import Link from "next/link";
 import InteractiveCode from "../components/InteractiveCode";
+import PricingSection from "../components/PricingSection";
+import FaqSection from "../components/FaqSection";
 
 export default function Home() {
   const activeLinks = [
@@ -77,7 +79,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-section-container">
+      {/* Interactive Pricing Section */}
+      <PricingSection />
+
+      <section className="home-section-container" style={{ borderBottom: "1px solid var(--border-color)" }}>
         <h2 className="home-section-title">Developer Guides & References</h2>
         <div className="capabilities-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
           {activeLinks.map((link, idx) => (
@@ -94,7 +99,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Interactive FAQ Section */}
+      <FaqSection />
     </div>
   );
 }
-
