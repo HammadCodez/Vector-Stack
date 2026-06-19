@@ -363,5 +363,228 @@ export const apiPages = [
         "href": "/docs/evaluation"
       }
     ]
+  },
+  {
+    "slug": "webhooks",
+    "title": "Webhooks API",
+    "description": "Register, update, and manage webhook endpoint subscriptions via REST.",
+    "sections": [
+      {
+        "heading": "Webhook Management Endpoints",
+        "body": "The webhooks API lets you programmatically register HTTPS callback URLs for event notifications. Review event types and payload signatures in the <a href=\"/docs/webhooks\">webhooks guide</a>.",
+        "list": [
+          "POST /v1/webhooks - Register a new webhook endpoint.",
+          "GET /v1/webhooks - List all registered webhook endpoints.",
+          "GET /v1/webhooks/:id - Retrieve details for a specific webhook.",
+          "PATCH /v1/webhooks/:id - Update the URL or event filters.",
+          "DELETE /v1/webhooks/:id - Remove a webhook subscription."
+        ]
+      },
+      {
+        "heading": "Register Webhook Example",
+        "body": "Register an endpoint to receive document ingestion events. Verify signature handling in the <a href=\"/docs/security\">security guide</a>:",
+        "code": "curl -X POST https://api.vectorstack.dev/v1/webhooks \\\n  -H \"Authorization: Bearer $VECTORSTACK_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"url\": \"https://myapp.com/webhooks/vectorstack\",\n    \"events\": [\"document.ingested\", \"document.failed\"],\n    \"secret\": \"whsec_abc123\"\n  }'"
+      },
+      {
+        "heading": "Webhook Payload Format",
+        "body": "Each webhook delivery includes a JSON body with the event type, timestamp, resource ID, and a signature header (X-VectorStack-Signature). Always validate signatures before processing payloads."
+      }
+    ],
+    "relatedLinks": [
+      { "text": "Webhooks Guide", "href": "/docs/webhooks" },
+      { "text": "Security", "href": "/docs/security" },
+      { "text": "Audit Logs API", "href": "/api/audit-logs" },
+      { "text": "Documents API", "href": "/api/documents" }
+    ],
+    "nextSteps": [
+      {
+        "text": "Webhooks Guide",
+        "description": "Learn about event types and signature verification.",
+        "href": "/docs/webhooks"
+      },
+      {
+        "text": "Audit Logs",
+        "description": "Track webhook registration events.",
+        "href": "/api/audit-logs"
+      }
+    ]
+  },
+  {
+    "slug": "audit-logs",
+    "title": "Audit Logs API",
+    "description": "Query organizational audit trails for security compliance and debugging.",
+    "sections": [
+      {
+        "heading": "Audit Log Endpoints",
+        "body": "The audit logs API provides read access to all organizational events including key rotations, team changes, index modifications, and webhook registrations. Review team configurations in the <a href=\"/docs/teams-and-permissions\">teams and permissions guide</a>.",
+        "list": [
+          "GET /v1/audit-logs - List audit events with pagination and filters.",
+          "GET /v1/audit-logs/:id - Retrieve a specific audit event by ID."
+        ]
+      },
+      {
+        "heading": "Query Example",
+        "body": "Retrieve the last 50 audit events for key rotation activities:",
+        "code": "curl -G https://api.vectorstack.dev/v1/audit-logs \\\n  -H \"Authorization: Bearer $VECTORSTACK_API_KEY\" \\\n  -d 'action=api_key.rotated' \\\n  -d 'limit=50' \\\n  -d 'order=desc'"
+      },
+      {
+        "heading": "Event Schema",
+        "body": "Each audit log entry contains: id, timestamp, actor (user email and IP), action (e.g., 'index.created', 'api_key.revoked'), resource type and ID, and a metadata object with before/after states for mutations."
+      }
+    ],
+    "relatedLinks": [
+      { "text": "Teams & Permissions", "href": "/docs/teams-and-permissions" },
+      { "text": "API Keys", "href": "/docs/api-keys" },
+      { "text": "Security", "href": "/docs/security" },
+      { "text": "Webhooks API", "href": "/api/webhooks" }
+    ],
+    "nextSteps": [
+      {
+        "text": "Teams & Permissions",
+        "description": "Configure role-based access for organization members.",
+        "href": "/docs/teams-and-permissions"
+      },
+      {
+        "text": "Security Guide",
+        "description": "Review compliance and encryption standards.",
+        "href": "/docs/security"
+      }
+    ]
+  },
+  {
+    "slug": "usage",
+    "title": "Usage API",
+    "description": "Query real-time and historical usage metrics for your VectorStack organization.",
+    "sections": [
+      {
+        "heading": "Usage Endpoints",
+        "body": "The usage API provides programmatic access to search volumes, ingestion counts, storage utilization, and embedding generation metrics. Track these in the <a href=\"/docs/observability\">observability dashboard</a>.",
+        "list": [
+          "GET /v1/usage - Retrieve aggregated usage metrics for a date range.",
+          "GET /v1/usage/search - Get search-specific volume and latency stats.",
+          "GET /v1/usage/ingestion - Get ingestion throughput and failure rates.",
+          "GET /v1/usage/storage - Get storage utilization by index."
+        ]
+      },
+      {
+        "heading": "Query Usage Example",
+        "body": "Retrieve search usage for the last 7 days. Compare against plan limits in our <a href=\"/pricing\">pricing guide</a>:",
+        "code": "curl -G https://api.vectorstack.dev/v1/usage/search \\\n  -H \"Authorization: Bearer $VECTORSTACK_API_KEY\" \\\n  -d 'start_date=2025-01-01' \\\n  -d 'end_date=2025-01-07' \\\n  -d 'granularity=daily'"
+      },
+      {
+        "heading": "Response Format",
+        "body": "Usage responses include time-series data points with timestamp, count, and breakdown by index. Use this data to build custom dashboards or trigger scaling alerts."
+      }
+    ],
+    "relatedLinks": [
+      { "text": "Observability", "href": "/docs/observability" },
+      { "text": "Rate Limits", "href": "/docs/rate-limits" },
+      { "text": "Billing API", "href": "/api/billing" },
+      { "text": "Pricing", "href": "/pricing" }
+    ],
+    "nextSteps": [
+      {
+        "text": "Billing API",
+        "description": "Access invoice and subscription data programmatically.",
+        "href": "/api/billing"
+      },
+      {
+        "text": "Observability Guide",
+        "description": "Set up monitoring dashboards and alerts.",
+        "href": "/docs/observability"
+      }
+    ]
+  },
+  {
+    "slug": "billing",
+    "title": "Billing API",
+    "description": "Access invoices, subscription details, and payment method management via REST.",
+    "sections": [
+      {
+        "heading": "Billing Endpoints",
+        "body": "The billing API provides read access to your organization's subscription plan, invoices, and payment methods. Compare plan features in our <a href=\"/pricing\">pricing guide</a>.",
+        "list": [
+          "GET /v1/billing/subscription - Retrieve current plan details.",
+          "GET /v1/billing/invoices - List all invoices with pagination.",
+          "GET /v1/billing/invoices/:id - Download a specific invoice.",
+          "GET /v1/billing/payment-methods - List stored payment methods."
+        ]
+      },
+      {
+        "heading": "Subscription Query Example",
+        "body": "Check your current subscription plan and usage limits:",
+        "code": "curl https://api.vectorstack.dev/v1/billing/subscription \\\n  -H \"Authorization: Bearer $VECTORSTACK_API_KEY\""
+      },
+      {
+        "heading": "Invoice Response",
+        "body": "Invoice objects include the billing period, line items (search queries, storage, embeddings), subtotal, tax, and total amounts. Invoices are generated on the first of each month."
+      }
+    ],
+    "relatedLinks": [
+      { "text": "Pricing", "href": "/pricing" },
+      { "text": "Usage API", "href": "/api/usage" },
+      { "text": "Rate Limits", "href": "/docs/rate-limits" },
+      { "text": "Teams & Permissions", "href": "/docs/teams-and-permissions" }
+    ],
+    "nextSteps": [
+      {
+        "text": "Usage Metrics",
+        "description": "Monitor real-time search and ingestion volumes.",
+        "href": "/api/usage"
+      },
+      {
+        "text": "Pricing Plans",
+        "description": "Compare available subscription tiers.",
+        "href": "/pricing"
+      }
+    ]
+  },
+  {
+    "slug": "errors",
+    "title": "API Errors Reference",
+    "description": "Complete reference of all REST API error codes, messages, and troubleshooting steps.",
+    "sections": [
+      {
+        "heading": "Error Response Format",
+        "body": "All API errors follow a consistent JSON structure with an error object containing code, message, and requestId fields. Read about SDK error handling in the <a href=\"/docs/errors\">errors guide</a>.",
+        "code": "{\n  \"error\": {\n    \"code\": \"RATE_LIMITED\",\n    \"message\": \"You have exceeded your rate limit. Please retry after the specified delay.\",\n    \"requestId\": \"req_abc123def\",\n    \"retryAfterMs\": 1500\n  }\n}"
+      },
+      {
+        "heading": "HTTP Status Codes",
+        "body": "The API uses standard HTTP status codes. Review how to handle retries in the <a href=\"/docs/rate-limits\">rate limits guide</a>:",
+        "list": [
+          "400 Bad Request - Invalid request body or missing required fields.",
+          "401 Unauthorized - Invalid or missing API key.",
+          "403 Forbidden - Insufficient permissions for the requested resource.",
+          "404 Not Found - The specified index or document does not exist.",
+          "409 Conflict - Resource already exists or version conflict.",
+          "429 Too Many Requests - Rate limit exceeded.",
+          "500 Internal Server Error - Unexpected server error.",
+          "503 Service Unavailable - Temporary maintenance or overload."
+        ]
+      },
+      {
+        "heading": "Error Code Reference",
+        "body": "Machine-readable error codes provide specific context beyond HTTP status. Common codes include INVALID_API_KEY, INDEX_NOT_FOUND, DOCUMENT_TOO_LARGE, DIMENSION_MISMATCH, QUOTA_EXCEEDED, and INGESTION_FAILED."
+      }
+    ],
+    "relatedLinks": [
+      { "text": "Errors Guide", "href": "/docs/errors" },
+      { "text": "Rate Limits", "href": "/docs/rate-limits" },
+      { "text": "Authentication", "href": "/api/authentication" },
+      { "text": "Status Page", "href": "/status" }
+    ],
+    "nextSteps": [
+      {
+        "text": "Rate Limits Guide",
+        "description": "Understand throttling headers and retry strategies.",
+        "href": "/docs/rate-limits"
+      },
+      {
+        "text": "Errors Guide",
+        "description": "Learn SDK-level error handling patterns.",
+        "href": "/docs/errors"
+      }
+    ]
   }
 ];

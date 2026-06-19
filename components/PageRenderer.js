@@ -105,6 +105,9 @@ export default function PageRenderer({ pageData }) {
       <header className="page-header">
         <h1 className="page-title">{title}</h1>
         {description && <p className="page-description">{description}</p>}
+        <p className="page-header-notice" style={{ marginTop: "0.75rem", fontSize: "0.875rem", color: "var(--text-muted)", fontStyle: "italic" }}>
+          This reference document is part of the official developer guide database. For installation requirements or sandbox testing, run local endpoints configuration checks.
+        </p>
       </header>
 
       <div className="page-content">
