@@ -5,6 +5,9 @@ import Link from "next/link";
 import CodeBlock from "./CodeBlock";
 import Callout from "./Callout";
 import Breadcrumbs from "./Breadcrumbs";
+import FaqSection from "./FaqSection";
+import IntegrationsSection from "./IntegrationsSection";
+import PricingSection from "./PricingSection";
 
 export default function PageRenderer({ pageData }) {
   // Feedback states
@@ -164,6 +167,25 @@ export default function PageRenderer({ pageData }) {
               ))}
             </div>
           </section>
+        )}
+
+        {/* Custom React sections embedded on specific pages */}
+        {pageData.slug === "getting-started" && (
+          <div className="rendered-custom-section" style={{ marginTop: "3.5rem" }}>
+            <FaqSection />
+          </div>
+        )}
+
+        {pageData.slug === "installation" && (
+          <div className="rendered-custom-section" style={{ marginTop: "3.5rem" }}>
+            <IntegrationsSection />
+          </div>
+        )}
+
+        {pageData.slug === "javascript" && (
+          <div className="rendered-custom-section" style={{ marginTop: "3.5rem" }}>
+            <PricingSection />
+          </div>
         )}
 
         {/* Dynamic Section 1: Helpful Documentation Feedback */}
