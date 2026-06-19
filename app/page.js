@@ -2,8 +2,8 @@ import Link from "next/link";
 import PricingSection from "../components/PricingSection";
 import VectorPlayground from "../components/VectorPlayground";
 import RagSimulator from "../components/RagSimulator";
-import IntegrationsSection from "../components/IntegrationsSection";
 import BenchmarkAnalyzer from "../components/BenchmarkAnalyzer";
+import StatusSection from "../components/StatusSection";
 
 export default function Home() {
   return (
@@ -30,14 +30,14 @@ export default function Home() {
       {/* 1. Interactive RAG Pipeline Simulator */}
       <RagSimulator />
 
-      {/* 2. Ecosystem Integrations Section */}
-      <IntegrationsSection />
-
-      {/* 3. Benchmark Performance Analyzer */}
+      {/* 2. Benchmark Performance Analyzer */}
       <BenchmarkAnalyzer />
 
-      {/* 4. Interactive Vector Search Playground */}
+      {/* 3. Interactive Vector Search Playground */}
       <VectorPlayground />
+
+      {/* 4. Platform Health Status Section */}
+      <StatusSection />
 
       {/* 5. Interactive Pricing Section */}
       <PricingSection />
