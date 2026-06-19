@@ -5,6 +5,9 @@ import FaqSection from "../components/FaqSection";
 import IntegrationsSection from "../components/IntegrationsSection";
 import StatusSection from "../components/StatusSection";
 import VectorPlayground from "../components/VectorPlayground";
+import RagSimulator from "../components/RagSimulator";
+import ChangelogSection from "../components/ChangelogSection";
+import TestimonialWall from "../components/TestimonialWall";
 
 export default function Home() {
   const activeLinks = [
@@ -82,6 +85,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Interactive RAG Pipeline Simulator */}
+      <RagSimulator />
+
       {/* Interactive Pricing Section */}
       <PricingSection />
 
@@ -106,11 +112,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Interactive Vector Search Playground */}
+      <VectorPlayground />
+
       {/* Platform Health Status Section */}
       <StatusSection />
 
-      {/* Interactive Vector Search Playground */}
-      <VectorPlayground />
+      {/* Testimonial Guestbook Wall */}
+      <TestimonialWall />
+
+      {/* Interactive Product Changelog */}
+      <ChangelogSection />
 
       {/* Interactive FAQ Section */}
       <FaqSection />
