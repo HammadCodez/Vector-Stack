@@ -3,6 +3,24 @@
 import { useState } from "react";
 import { pricingPlans } from "../data/pricing";
 
+const docScaleSteps = [
+  { val: 1000, label: "1,000 docs" },
+  { val: 10000, label: "10,000 docs" },
+  { val: 100000, label: "100,000 docs (Free Limit)" },
+  { val: 500000, label: "500,000 docs" },
+  { val: 1000000, label: "1,000,000 docs (Pro Limit)" },
+  { val: 10000000, label: "10,000,000+ docs" }
+];
+
+const queryScaleSteps = [
+  { val: 50, label: "50 QPM" },
+  { val: 100, label: "100 QPM (Free Limit)" },
+  { val: 1000, label: "1,000 QPM" },
+  { val: 10000, label: "10,000 QPM (Pro Limit)" },
+  { val: 100000, label: "100,000 QPM" },
+  { val: 1000000, label: "1,000,000+ QPM" }
+];
+
 export default function PricingSection() {
   const [billingCycle, setBillingCycle] = useState("monthly"); // "monthly" or "yearly"
   const [selectedPlan, setSelectedPlan] = useState(null); // plan object for checkout modal
@@ -11,6 +29,23 @@ export default function PricingSection() {
   const [isProvisioning, setIsProvisioning] = useState(false);
   const [provisionProgress, setProvisionProgress] = useState(0);
   const [provisionSuccess, setProvisionSuccess] = useState(false);
+
+  // Scale Calculator States
+  const [docStep, setDocStep] = useState(2); // default 100k
+  const [queryStep, setQueryStep] = useState(1); // default 100 QPM
+
+  // Recommendation logic
+  const getRecommendedTier = () => {
+    if (docStep <= 2 && queryStep <= 1) {
+      return "Free";
+    }
+    if (docStep <= 4 && queryStep <= 3) {
+      return "Pro";
+    }
+    return "Enterprise";
+  };
+
+  const recommendedTier = getRecommendedTier();
 
   // Helper to get price display values based on billing cycle
   const getPlanPrice = (plan) => {
@@ -75,6 +110,50 @@ export default function PricingSection() {
           Deploy vector instances instantly. Scale search requests, document chunks, and models dynamically.
         </p>
 
+        {/* Dynamic Scale Calculator */}
+        <div className="pricing-calculator-card">
+          <h4>Estimate Your Search Scale</h4>
+          <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
+            Slide variables to match your ingestion size and query limits to determine the recommended database tier.
+          </p>
+          
+          <div className="calculator-sliders-grid">
+            <div className="rag-form-group">
+              <label style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Ingested Documents</span>
+                <span className="slider-val-badge">{docScaleSteps[docStep].label}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max={docScaleSteps.length - 1}
+                value={docStep}
+                onChange={(e) => setDocStep(parseInt(e.target.value))}
+                className="rag-slider"
+              />
+            </div>
+
+            <div className="rag-form-group">
+              <label style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Queries Volume Limit</span>
+                <span className="slider-val-badge">{queryScaleSteps[queryStep].label}</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max={queryScaleSteps.length - 1}
+                value={queryStep}
+                onChange={(e) => setQueryStep(parseInt(e.target.value))}
+                className="rag-slider"
+              />
+            </div>
+          </div>
+
+          <div className="calculator-recommendation-alert">
+            Based on your volumes, we recommend the <strong style={{ color: "var(--accent-blue)" }}>{recommendedTier}</strong> tier index.
+          </div>
+        </div>
+
         {/* Toggle Switch */}
         <div className="pricing-toggle-container">
           <button
@@ -97,9 +176,15 @@ export default function PricingSection() {
       <div className="pricing-grid">
         {pricingPlans.map((plan) => {
           const { val, label } = getPlanPrice(plan);
+          const isRecommended = plan.name === recommendedTier;
+
           return (
-            <div key={plan.name} className={`pricing-card ${plan.popular ? "popular" : ""}`}>
-              {plan.popular && <span className="popular-badge">Most Popular</span>}
+            <div
+              key={plan.name}
+              className={`pricing-card ${plan.popular ? "popular" : ""} ${isRecommended ? "recommended-border" : ""}`}
+            >
+              {isRecommended && <span className="calculator-recommended-badge">Recommended Tier</span>}
+              {plan.popular && !isRecommended && <span className="popular-badge">Most Popular</span>}
               
               <h3>{plan.name}</h3>
               <p className="pricing-description">{plan.description}</p>

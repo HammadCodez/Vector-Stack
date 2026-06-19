@@ -3626,6 +3626,78 @@ a:hover {
   margin: 0;
 }
 
+/* ==========================================
+   Pricing Calculator Custom CSS
+   ========================================== */
+.pricing-calculator-card {
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.pricing-calculator-card h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.calculator-sliders-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .calculator-sliders-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calculator-recommendation-alert {
+  background-color: #eff6ff;
+  border-left: 4px solid var(--accent-blue);
+  color: var(--text-primary);
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+/* Recommended tier borders and badges */
+.pricing-card.recommended-border {
+  border-color: #f59e0b;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.1), 0 8px 10px -6px rgba(245, 158, 11, 0.05);
+  animation: pulseRecommended 2s infinite alternate;
+}
+
+.calculator-recommended-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background-color: #f59e0b;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+  z-index: 5;
+}
+
+@keyframes pulseRecommended {
+  0% { border-color: #f59e0b; }
+  100% { border-color: #d97706; }
+}
+
+
 
 
 
