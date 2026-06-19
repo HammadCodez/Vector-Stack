@@ -2,6 +2,8 @@ import Link from "next/link";
 import PricingSection from "../components/PricingSection";
 import VectorPlayground from "../components/VectorPlayground";
 import RagSimulator from "../components/RagSimulator";
+import TokenizerSandbox from "../components/TokenizerSandbox";
+import IntegrationsSection from "../components/IntegrationsSection";
 
 export default function Home() {
   return (
@@ -25,13 +27,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1. Interactive RAG Pipeline Simulator */}
+      {/* 1. Interactive Embedding Tokenizer Sandbox */}
+      <TokenizerSandbox />
+
+      {/* 2. Interactive RAG Pipeline Simulator */}
       <RagSimulator />
 
-      {/* 2. Interactive Vector Search Playground */}
+      {/* 3. Ecosystem Integrations Section */}
+      <IntegrationsSection />
+
+      {/* 4. Interactive Vector Search Playground */}
       <VectorPlayground />
 
-      {/* 3. Interactive Pricing Section */}
+      {/* 5. Interactive Pricing Section */}
       <PricingSection />
     </div>
   );
