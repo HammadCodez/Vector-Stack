@@ -4,6 +4,7 @@ import PricingSection from "../components/PricingSection";
 import FaqSection from "../components/FaqSection";
 import IntegrationsSection from "../components/IntegrationsSection";
 import StatusSection from "../components/StatusSection";
+import VectorPlayground from "../components/VectorPlayground";
 
 export default function Home() {
   const activeLinks = [
@@ -107,6 +108,9 @@ export default function Home() {
 
       {/* Platform Health Status Section */}
       <StatusSection />
+
+      {/* Interactive Vector Search Playground */}
+      <VectorPlayground />
 
       {/* Interactive FAQ Section */}
       <FaqSection />
