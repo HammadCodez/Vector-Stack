@@ -8,6 +8,8 @@ import VectorPlayground from "../components/VectorPlayground";
 import RagSimulator from "../components/RagSimulator";
 import ChangelogSection from "../components/ChangelogSection";
 import TestimonialWall from "../components/TestimonialWall";
+import TokenizerSandbox from "../components/TokenizerSandbox";
+import BenchmarkAnalyzer from "../components/BenchmarkAnalyzer";
 
 export default function Home() {
   const activeLinks = [
@@ -41,6 +43,10 @@ export default function Home() {
       <section style={{ borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
         <InteractiveCode />
       </section>
+
+      {/* Interactive Embedding Tokenizer Sandbox */}
+      <TokenizerSandbox />
+
 
       {/* Core Platform Capabilities Section */}
       <section className="home-section-container" style={{ borderBottom: "1px solid var(--border-color)" }}>
@@ -93,6 +99,10 @@ export default function Home() {
 
       {/* Ecosystem Integrations Section */}
       <IntegrationsSection />
+
+      {/* Benchmark Performance Analyzer */}
+      <BenchmarkAnalyzer />
+
 
       <section className="home-section-container" style={{ borderBottom: "1px solid var(--border-color)" }}>
         <h2 className="home-section-title">Developer Guides & References</h2>
