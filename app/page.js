@@ -142,6 +142,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Quick Start Guides Section */}
+      <section className="home-guides-section">
+        <h2 className="home-guides-title">Quick Start Guides</h2>
+        <p className="home-guides-subtitle">
+          Dive deeper into VectorStack with focused tutorials for common use cases.
+        </p>
+        <div className="home-guides-grid">
+          <Link href="/docs/rag-pipelines" className="home-guide-card">
+            <span className="home-guide-emoji">🧠</span>
+            <h3>Build a RAG Pipeline</h3>
+            <p>Connect your vector index to an LLM for context-aware AI responses with retrieval-augmented generation.</p>
+          </Link>
+          <Link href="/docs/hybrid-search" className="home-guide-card">
+            <span className="home-guide-emoji">🔀</span>
+            <h3>Hybrid Search Setup</h3>
+            <p>Combine semantic vector search with keyword BM25 matching for maximum recall and precision.</p>
+          </Link>
+          <Link href="/docs/webhooks" className="home-guide-card">
+            <span className="home-guide-emoji">🔔</span>
+            <h3>Webhook Automation</h3>
+            <p>Receive real-time notifications for ingestion events, index updates, and search milestones.</p>
+          </Link>
+          <Link href="/docs/evaluation" className="home-guide-card">
+            <span className="home-guide-emoji">📊</span>
+            <h3>Evaluate Retrieval Quality</h3>
+            <p>Measure Precision@K, Recall@K, and MRR to validate your search pipeline accuracy over time.</p>
+          </Link>
+          <Link href="/docs/security" className="home-guide-card">
+            <span className="home-guide-emoji">🔒</span>
+            <h3>Security & Compliance</h3>
+            <p>Configure encryption, access controls, GDPR compliance, and API key rotation policies.</p>
+          </Link>
+          <Link href="/docs/environments" className="home-guide-card">
+            <span className="home-guide-emoji">🌍</span>
+            <h3>Environment Management</h3>
+            <p>Separate dev, staging, and production configurations with isolated indexes and credentials.</p>
+          </Link>
+        </div>
+      </section>
+
       {/* 1. Interactive RAG Pipeline Simulator */}
       <RagSimulator />
 

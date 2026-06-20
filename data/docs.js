@@ -129,6 +129,16 @@ export const docsPages = [
         "code": "const client = new VectorStack({\n  apiKey: process.env.VECTORSTACK_API_KEY,\n  timeoutMs: 5000,\n  maxRetries: 5,\n  headers: { 'X-Custom-Header': 'App-Value' }\n});"
       },
       {
+        "heading": "Go & Java SDK Installation",
+        "body": "VectorStack also ships official SDKs for Go and Java. The Go module supports context-aware cancellation and connection pooling for high-throughput microservices. The Java SDK targets Java 11+ and Kotlin with builder-pattern request objects. Refer to the <a href=\"/sdk/golang\">Go SDK</a> and <a href=\"/sdk/java\">Java SDK</a> guides for advanced initialization patterns.",
+        "code": "# Go\ngo get github.com/vectorstack/vectorstack-go@latest\n\n# Java (Maven)\n<dependency>\n  <groupId>dev.vectorstack</groupId>\n  <artifactId>vectorstack-java</artifactId>\n  <version>2.0.0</version>\n</dependency>"
+      },
+      {
+        "heading": "CI/CD Pipeline Integration",
+        "body": "Automate VectorStack setup in continuous integration workflows. Install the SDK and run verification tests as part of your pipeline to ensure every deployment has a working vector search connection. You can also use the <a href=\"/sdk/cli\">CLI tool</a> for index management in CI. Track deployment health inside the <a href=\"/docs/observability\">observability dashboard</a>.",
+        "code": "# GitHub Actions example\nname: VectorStack CI\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install vectorstack\n      - run: node -e \"const {VectorStack}=require('vectorstack'); console.log('SDK loaded');\"\n        env:\n          VECTORSTACK_API_KEY: ${{ secrets.VECTORSTACK_API_KEY }}"
+      },
+      {
         "heading": "Verification Guidelines",
         "body": "Ensure that connection handshakes are executed within the sandboxed environment to isolate index operations. Run test queries to verify metadata filters align correctly with your access scopes."
       }
