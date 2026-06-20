@@ -30,6 +30,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Platform Stats Section */}
+      <section className="home-stats-section">
+        <h2 className="home-stats-title">Trusted by Developers Worldwide</h2>
+        <p className="home-stats-subtitle">
+          Powering semantic search and RAG pipelines across thousands of production applications.
+        </p>
+        <div className="home-stats-grid">
+          <div className="home-stat-card">
+            <span className="home-stat-number">12B+</span>
+            <span className="home-stat-label">Vectors Indexed</span>
+          </div>
+          <div className="home-stat-card">
+            <span className="home-stat-number">50ms</span>
+            <span className="home-stat-label">Avg Query Latency</span>
+          </div>
+          <div className="home-stat-card">
+            <span className="home-stat-number">99.99%</span>
+            <span className="home-stat-label">Uptime SLA</span>
+          </div>
+          <div className="home-stat-card">
+            <span className="home-stat-number">8K+</span>
+            <span className="home-stat-label">Active Teams</span>
+          </div>
+        </div>
+      </section>
+
       {/* 1. Interactive RAG Pipeline Simulator */}
       <RagSimulator />
 
