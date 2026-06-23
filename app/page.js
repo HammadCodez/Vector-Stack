@@ -4,6 +4,9 @@ import VectorPlayground from "../components/VectorPlayground";
 import RagSimulator from "../components/RagSimulator";
 import BenchmarkAnalyzer from "../components/BenchmarkAnalyzer";
 import StatusSection from "../components/StatusSection";
+import TestimonialWall from "../components/TestimonialWall";
+import ChangelogSection from "../components/ChangelogSection";
+import CommunitySection from "../components/CommunitySection";
 
 export default function Home() {
   return (
@@ -194,7 +197,16 @@ export default function Home() {
       {/* 4. Platform Health Status Section */}
       <StatusSection />
 
-      {/* 5. Interactive Pricing Section */}
+      {/* 5. Testimonial Wall & Guestbook */}
+      <TestimonialWall />
+
+      {/* 6. Product Updates & Changelog */}
+      <ChangelogSection />
+
+      {/* 7. Open Source & Community */}
+      <CommunitySection />
+
+      {/* 8. Interactive Pricing Section */}
       <PricingSection />
     </div>
   );
