@@ -8,6 +8,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import FaqSection from "./FaqSection";
 import IntegrationsSection from "./IntegrationsSection";
 import PricingSection from "./PricingSection";
+import GetHelpSection from "./GetHelpSection";
 
 export default function PageRenderer({ pageData }) {
   // Feedback states
@@ -190,6 +191,11 @@ export default function PageRenderer({ pageData }) {
             <PricingSection />
           </div>
         )}
+
+        {/* Getting Help / Support Channels — shown on all pages */}
+        <div className="rendered-custom-section" style={{ marginTop: "3.5rem" }}>
+          <GetHelpSection />
+        </div>
 
         {/* Dynamic Section 1: Helpful Documentation Feedback */}
         <section className="docs-feedback-wrapper">

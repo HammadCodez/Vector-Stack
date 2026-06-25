@@ -7,6 +7,10 @@ import StatusSection from "../components/StatusSection";
 import TestimonialWall from "../components/TestimonialWall";
 import ChangelogSection from "../components/ChangelogSection";
 import CommunitySection from "../components/CommunitySection";
+import BlogResourcesSection from "../components/BlogResourcesSection";
+import EventsSection from "../components/EventsSection";
+import GetHelpSection from "../components/GetHelpSection";
+import NewsletterSection from "../components/NewsletterSection";
 
 export default function Home() {
   return (
@@ -206,7 +210,19 @@ export default function Home() {
       {/* 7. Open Source & Community */}
       <CommunitySection />
 
-      {/* 8. Interactive Pricing Section */}
+      {/* 8. Latest Blog Posts & Resources */}
+      <BlogResourcesSection />
+
+      {/* 9. Upcoming Events & Webinars */}
+      <EventsSection />
+
+      {/* 10. Getting Help / Support Channels */}
+      <GetHelpSection />
+
+      {/* 10. Developer Newsletter Signup */}
+      <NewsletterSection />
+
+      {/* 11. Interactive Pricing Section */}
       <PricingSection />
     </div>
   );
