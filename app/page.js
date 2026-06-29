@@ -5,8 +5,7 @@ import RagSimulator from "../components/RagSimulator";
 import BenchmarkAnalyzer from "../components/BenchmarkAnalyzer";
 import StatusSection from "../components/StatusSection";
 import TestimonialWall from "../components/TestimonialWall";
-import ChangelogSection from "../components/ChangelogSection";
-import CommunitySection from "../components/CommunitySection";
+
 import BlogResourcesSection from "../components/BlogResourcesSection";
 import EventsSection from "../components/EventsSection";
 import GetHelpSection from "../components/GetHelpSection";
@@ -37,31 +36,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Platform Stats Section */}
-      <section className="home-stats-section">
-        <h2 className="home-stats-title">Trusted by Developers Worldwide</h2>
-        <p className="home-stats-subtitle">
-          Powering semantic search and RAG pipelines across thousands of production applications.
-        </p>
-        <div className="home-stats-grid">
-          <div className="home-stat-card">
-            <span className="home-stat-number">12B+</span>
-            <span className="home-stat-label">Vectors Indexed</span>
-          </div>
-          <div className="home-stat-card">
-            <span className="home-stat-number">50ms</span>
-            <span className="home-stat-label">Avg Query Latency</span>
-          </div>
-          <div className="home-stat-card">
-            <span className="home-stat-number">99.99%</span>
-            <span className="home-stat-label">Uptime SLA</span>
-          </div>
-          <div className="home-stat-card">
-            <span className="home-stat-number">8K+</span>
-            <span className="home-stat-label">Active Teams</span>
-          </div>
-        </div>
-      </section>
+
 
       {/* How It Works Section */}
       <section className="home-how-section">
@@ -204,11 +179,7 @@ export default function Home() {
       {/* 5. Testimonial Wall & Guestbook */}
       <TestimonialWall />
 
-      {/* 6. Product Updates & Changelog */}
-      <ChangelogSection />
 
-      {/* 7. Open Source & Community */}
-      <CommunitySection />
 
       {/* 8. Latest Blog Posts & Resources */}
       <BlogResourcesSection />
